@@ -7,7 +7,16 @@ def load_data():
         engine = create_engine('postgresql://postgres:root@localhost/telecom')
 
         # SQL Query to retrieve all data from the telecom table
-        query = "SELECT * FROM xdr_data;"
+        query = """ SELECT 
+                    "MSISDN/Number",
+                    "TCP DL Retrans. Vol (Bytes)",
+                    "TCP UL Retrans. Vol (Bytes)",
+                    "Avg RTT DL (ms)",
+                    "Avg RTT UL (ms)",
+                    "Avg Bearer TP DL (kbps)",
+                    "Avg Bearer TP UL (kbps)",
+                    "Handset Type"
+                    FROM xdr_data  """
 
         # Load data directly into a pandas DataFrame using the engine
         data = pd.read_sql(query, engine)
