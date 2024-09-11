@@ -5,7 +5,7 @@ import numpy as np
 from sklearn.impute import SimpleImputer
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
-
+import mysql.connector
 
 
 # Function to calculate engagement and experience scores
@@ -62,3 +62,5 @@ def kmeans_clustering(data, n_clusters):
     kmeans = KMeans(n_clusters=n_clusters, random_state=42)
     data['cluster'] = kmeans.fit_predict(data[['engagement_score', 'experience_score']])
     return data
+
+
