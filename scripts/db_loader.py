@@ -1,32 +1,23 @@
-# db_loader.py
-import psycopg2
+from sqlalchemy import create_engine
 import pandas as pd
 
 def load_data():
     try:
-        # Connect to the PostgreSQL database
-        conn = psycopg2.connect(
-            host="localhost",
-            database="telecom",
-            user="postgres",
-            password="root"
-        )
-        cursor = conn.cursor()
+        # Create SQLAlchemy engine
+        engine = create_engine('postgresql://postgres:root@localhost/telecom')
 
         # SQL Query to retrieve all data from the telecom table
-        query = """
-            SELECT * FROM telecom_data;
-        """
-        
-        # Load data into a pandas DataFrame
-        data = pd.read_sql(query, conn)
+        query = "SELECT * FROM xdr_data;"
 
-        # Close the cursor and connection
-        cursor.close()
-        conn.close()
+        # Load data directly into a pandas DataFrame using the engine
+        data = pd.read_sql(query, engine)
+
+        # Close the engine connection
+        engine.dispose()
         
         return data
     
     except Exception as e:
         print(f"Error loading data: {e}")
         return None
+
